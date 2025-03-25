@@ -1,0 +1,13 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/whispers.api-e2e"
+    },
+    {
+      "path": "./apps/whispers.api"
+    }
+  ]
+}

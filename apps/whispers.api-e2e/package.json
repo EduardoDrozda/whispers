@@ -1,0 +1,26 @@
+{
+  "name": "@whispers/whispers.api-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "whispers.api-e2e",
+    "implicitDependencies": [
+      "whispers.api"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/whispers.api-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "whispers.api:build"
+        ]
+      }
+    }
+  }
+}
