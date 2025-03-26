@@ -1,0 +1,22 @@
+{
+  "targets": {
+    "prisma": {
+      "command": "prisma",
+      "options": {
+        "cwd": "apps/whispers.api"
+      }
+    },
+    "migrate": {
+      "command": "prisma migrate dev",
+      "options": {
+        "cwd": "apps/whispers.api"
+      }
+    },
+    "generate-types": {
+      "command": "prisma generate",
+      "options": {
+        "cwd": "apps/whispers.api"
+      }
+    }
+  }
+}
