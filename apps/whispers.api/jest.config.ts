@@ -17,5 +17,6 @@ export default {
     '^.+\\.[tj]s$': ['@swc/jest', swcJestConfig]
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
+  coveragePathIgnorePatterns: ['/node_modules/', '/test-output/', '/src/mocks/'],
   coverageDirectory: 'test-output/jest/coverage'
 };

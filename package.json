@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "api:dev": "nx run whispers.api:serve"
+    "api:dev": "nx run whispers.api:serve",
+    "api:test": "nx run whispers.api:test",
+    "api:build": "nx run whispers.api:build"
   },
   "private": true,
   "dependencies": {

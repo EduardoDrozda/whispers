@@ -1,11 +1,11 @@
 import { HttpStatus, Inject, Injectable } from "@nestjs/common";
 
-import { type IUserRepository, USER_REPOSITORY } from "../../../infrastructure/repositories";
+import { type IUserRepository, USER_REPOSITORY } from "../../../../infrastructure/repositories";
 import { User } from "@prisma/client";
-import { NotificationService } from "../../../infrastructure/notification";
-import { LoggerService } from "../../../infrastructure/logger";
-import { HashService } from "../../../infrastructure/hash";
-import { CreateUserDTO, GetUserDTO } from "./dtos";
+import { NotificationService } from "../../../../infrastructure/notification";
+import { LoggerService } from "../../../../infrastructure/logger";
+import { HashService } from "../../../../infrastructure/hash";
+import { CreateUserDTO, GetUserDTO } from "../dtos";
 
 @Injectable()
 export class CreateUserUseCase {
