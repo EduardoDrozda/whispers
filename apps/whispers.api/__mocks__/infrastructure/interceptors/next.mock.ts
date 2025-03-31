@@ -1,6 +1,6 @@
-import { CallHandler } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { CallHandler } from "@nestjs/common";
+import { of } from "rxjs";
 
-export const nextMock = (data: Observable<any>): CallHandler<any> => ({
-  handle: () => data,
+export const nextMock = (): CallHandler => ({
+  handle: jest.fn(() => of('response')),
 });

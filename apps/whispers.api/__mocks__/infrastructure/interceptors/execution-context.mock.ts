@@ -1,29 +1,17 @@
-import { ExecutionContext } from '@nestjs/common';
+import { ExecutionContext } from "@nestjs/common";
 
-export const executionContextMock = (url = '/api/test') => {
-  const context: ExecutionContext = {
-    switchToHttp: () => ({
-      getRequest: () => ({
-        url,
-      }),
-      getResponse: () => ({
-        status: jest.fn(),
-      }),
-    }),
-    getClass: () => undefined,
-    getHandler: () => undefined,
-    getArgs: () => [],
-    getArgByIndex: () => undefined,
-    getType: () => 'http',
-    switchToRpc: () => ({
-      getContext: () => ({}),
-      getData: () => ({}),
-    }),
-    switchToWs: () => ({
-      getClient: () => ({}),
-      getData: () => ({}),
+export const executionContextMock = (url: string, traceHeader?: string): ExecutionContext => {
+  const req = {
+    url,
+    header: jest.fn().mockImplementation((key: string) => {
+      if (key === 'x-trace-id') return traceHeader;
+      return undefined;
     }),
   };
 
-  return context;
+  return {
+    switchToHttp: () => ({
+      getRequest: () => req,
+    }),
+  } as any as ExecutionContext;
 };
