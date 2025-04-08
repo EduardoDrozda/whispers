@@ -24,7 +24,7 @@ export class CreateWhisperUseCase {
       }
     });
 
-    this.loggerService.info(`Whisper created with id ${whisper.id}`);
+    this.loggerService.info(`Whisper created successfully`);
     return whisper;
   }
 }

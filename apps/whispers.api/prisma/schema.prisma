@@ -32,7 +32,7 @@ model Whisper {
   id        String   @id @default(cuid())
   userId    String
   title     String
-  content   String
+  content   String   @db.Text
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 

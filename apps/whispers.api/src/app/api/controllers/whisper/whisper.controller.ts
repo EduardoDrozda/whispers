@@ -1,5 +1,7 @@
-import { Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
+import { Body, Controller, HttpCode, HttpStatus, Post } from "@nestjs/common";
 import { CreateWhisperUseCase } from "../../../business/use-cases/whisper/create-whisper/create-whisper.usecase";
+import { CreateWhisperDTO } from "../../../business/use-cases/whisper/dtos/create-whisper.dto";
+import { UserId } from "../../../infrastructure/jwt";
 
 @Controller({ path: "whispers", version: "1" })
 export class WhisperController {
@@ -7,12 +9,7 @@ export class WhisperController {
 
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async createWhisper() {
-    const data = {
-      title: "Test title",
-      content: "Test content",
-    };
-
-    return this.createWhisersUseCase.execute(data, "");
+  async createWhisper(@Body() data: CreateWhisperDTO, @UserId() userId: string) {
+    return this.createWhisersUseCase.execute(data, userId);
   }
 }

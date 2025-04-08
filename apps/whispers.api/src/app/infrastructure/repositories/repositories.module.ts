@@ -15,6 +15,6 @@ import { WHISPER_REPOSITORY, WhisperRepository } from "./whispers";
       useClass: WhisperRepository
     }
   ],
-  exports: [USER_REPOSITORY]
+  exports: [USER_REPOSITORY, WHISPER_REPOSITORY]
 })
 export class RepositoriesModule { }
