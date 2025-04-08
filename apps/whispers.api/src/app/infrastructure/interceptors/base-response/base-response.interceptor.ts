@@ -31,21 +31,24 @@ export class BaseResponseInterceptor implements NestInterceptor {
       map((data) => {
         if (this.notification.hasNotification) {
           const notification = { ...this.notification.getMessages()! };
+          const statusCode = notification.statusCode || HttpStatus.INTERNAL_SERVER_ERROR;
           this.notification.clear();
           response.status(
-            notification.statusCode || HttpStatus.INTERNAL_SERVER_ERROR,
+            statusCode
           );
 
           return {
             error: true,
             errorMessages: notification,
             result: null,
+            status: statusCode,
           } as IBaseResponse<any>;
         }
 
         return {
           error: false,
           result: data,
+          status: response.statusCode,
         } as IBaseResponse<any>;
       }),
     );

@@ -5,6 +5,8 @@ export const envSchema = z.object({
   APP_PORT: z.string(),
   DATABASE_URL: z.string().url(),
   DIRECT_URL: z.string().url(),
+  JWT_SECRET: z.string(),
+  JWT_EXPIRES_IN: z.string(),
 });
 
 export type EnvTypes = z.infer<typeof envSchema>;

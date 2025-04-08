@@ -2,7 +2,7 @@ import { HttpStatus, Injectable } from '@nestjs/common';
 import { AsyncLocalStorage } from 'async_hooks';
 import { TraceService } from '../trace';
 
-interface INotificationMessage {
+export interface INotificationMessage {
   message: string;
   statusCode?: HttpStatus;
 }

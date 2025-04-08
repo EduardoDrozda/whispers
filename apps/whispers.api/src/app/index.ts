@@ -1,8 +1,14 @@
 import { INestApplication, ValidationPipe, VersioningType } from "@nestjs/common";
 import { EnviromentService } from "./infrastructure/enviroment";
 import { LoggerService } from "./infrastructure/logger";
-import { NestFactory } from "@nestjs/core";
+import { NestFactory, Reflector } from "@nestjs/core";
 import { AppModule } from "./app.module";
+import { UnauthorizedExceptionFilter } from "./infrastructure/filters/unauthorized-exception/unauthorized-exception.filter";
+import { BaseRequestInterceptor, BaseResponseInterceptor } from "./infrastructure/interceptors";
+import { TraceService } from "./infrastructure/trace";
+import { NotificationService } from "./infrastructure/notification";
+import { JwtGuard } from "./infrastructure/jwt";
+import { JwtService } from "@nestjs/jwt";
 
 export class Application {
   private server!: INestApplication;
@@ -17,8 +23,19 @@ export class Application {
   }
 
   private async setGlobalScopes(): Promise<void> {
+    const traceService = this.server.get(TraceService);
+    const notificationService = this.server.get(NotificationService);
+    const jwtService = this.server.get(JwtService);
+    const reflector = this.server.get(Reflector);
+
     this.server.setGlobalPrefix(this.globalPrefix);
-    this.server.useGlobalPipes(new ValidationPipe);
+    this.server.useGlobalPipes(new ValidationPipe());
+    this.server.useGlobalFilters(new UnauthorizedExceptionFilter(this.loggerService));
+
+    this.server.useGlobalGuards(new JwtGuard(jwtService, reflector, this.enviromentService));
+
+    this.server.useGlobalInterceptors(new BaseRequestInterceptor(traceService));
+    this.server.useGlobalInterceptors(new BaseResponseInterceptor(notificationService));
 
     this.server.enableVersioning({
       type: VersioningType.URI,
