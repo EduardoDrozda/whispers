@@ -19,8 +19,7 @@ export class UnauthorizedExceptionFilter<T> implements ExceptionFilter {
         message: exception.message,
         statusCode: status,
       },
-      result: null,
-      stackTrace: exception.stack,
+      result: null
     }
 
     this.loggerService.error(

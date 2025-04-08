@@ -11,4 +11,7 @@ export class CreateWhisperDTO {
   @IsString()
   @MaxLength(10000)
   content: string;
+
+  @IsString()
+  mood?: string;
 }

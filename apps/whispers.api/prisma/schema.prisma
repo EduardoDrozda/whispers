@@ -28,11 +28,22 @@ model User {
   @@map("users")
 }
 
+enum Mood {
+  HAPPY
+  VERY_HAPPY
+  SAD
+  VERY_SAD
+  ANGRY
+  VERY_ANGRY
+  NEUTRAL
+}
+
 model Whisper {
   id        String   @id @default(cuid())
   userId    String
   title     String
   content   String   @db.Text
+  mood      String   @default("NEUTRAL")
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
