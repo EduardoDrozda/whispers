@@ -1,10 +1,13 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post } from "@nestjs/common";
 import { UserId } from "../../../infrastructure/jwt";
 import {
   CreateWhisperDTO,
+  UpdateWhisperDTO,
   CreateWhisperUseCase,
+  DeleteWhisperUseCase,
   GetWhisperByIdUseCase,
-  GetWhispersByUserIdUseCase
+  GetWhispersByUserIdUseCase,
+  UpdateWhisperUseCase
 } from "../../../business/use-cases/whisper";
 
 @Controller({ path: "whispers", version: "1" })
@@ -12,7 +15,9 @@ export class WhisperController {
   constructor(
     private readonly createWhiserUseCase: CreateWhisperUseCase,
     private readonly getWhispersUseCase: GetWhispersByUserIdUseCase,
-    private readonly getWhisperByIdUseCase: GetWhisperByIdUseCase
+    private readonly getWhisperByIdUseCase: GetWhisperByIdUseCase,
+    private readonly updateWhisperUseCase: UpdateWhisperUseCase,
+    private readonly deleteWhisperUseCase: DeleteWhisperUseCase,
   ) { }
 
   @Post()
@@ -31,5 +36,21 @@ export class WhisperController {
   @HttpCode(HttpStatus.OK)
   getWhisperById(@Param("id") id: string, @UserId() userId: string, ) {
     return this.getWhisperByIdUseCase.execute(id, userId);
+  }
+
+  @Patch(":id")
+  @HttpCode(HttpStatus.OK)
+  updateWhisper(@Param("id") id: string, @Body() data: UpdateWhisperDTO, @UserId() userId: string) {
+    return this.updateWhisperUseCase.execute({
+      id,
+      userId,
+      data
+    });
+  }
+
+  @Delete(":id")
+  @HttpCode(HttpStatus.OK)
+  deleteWhisper(@Param("id") id: string, @UserId() userId: string) {
+    return this.deleteWhisperUseCase.execute(id, userId);
   }
 }

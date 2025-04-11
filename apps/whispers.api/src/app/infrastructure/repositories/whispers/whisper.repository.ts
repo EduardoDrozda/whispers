@@ -28,7 +28,15 @@ export class WhisperRepository extends BaseRepository implements IWhisperReposit
   }
 
   update(id: string, userId: string, data: Prisma.WhisperUpdateInput): Promise<Whisper> {
-    throw new Error("Method not implemented.");
+    return this.whisper.update({
+      where: {
+        id,
+        userId,
+      },
+      data: {
+        ...data
+      },
+    });
   }
   delete(id: string, userId: string): Promise<Whisper> {
     throw new Error("Method not implemented.");
