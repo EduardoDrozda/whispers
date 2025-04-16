@@ -1,0 +1,94 @@
+{
+  "name": "whispers.web",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/whispers.web/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/whispers.web",
+        "index": "apps/whispers.web/src/index.html",
+        "browser": "apps/whispers.web/src/main.ts",
+        "polyfills": ["zone.js"],
+        "tsConfig": "apps/whispers.web/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/whispers.web/public"
+          }
+        ],
+        "styles": ["apps/whispers.web/src/styles.scss"],
+        "scripts": [],
+        "server": "apps/whispers.web/src/main.server.ts",
+        "ssr": {
+          "entry": "apps/whispers.web/src/server.ts"
+        },
+        "prerender": true
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "4kb",
+              "maximumError": "8kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "whispers.web:build:production"
+        },
+        "development": {
+          "buildTarget": "whispers.web:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "whispers.web:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/whispers.web/jest.config.ts"
+      }
+    },
+    "serve-static": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "whispers.web:build",
+        "staticFilePath": "dist/apps/whispers.web/browser",
+        "spa": true
+      }
+    }
+  }
+}
