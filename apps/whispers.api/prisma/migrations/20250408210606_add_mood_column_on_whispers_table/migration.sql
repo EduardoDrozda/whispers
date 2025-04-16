@@ -1,0 +1,5 @@
+-- CreateEnum
+CREATE TYPE "Mood" AS ENUM ('HAPPY', 'VERY_HAPPY', 'SAD', 'VERY_SAD', 'ANGRY', 'VERY_ANGRY', 'NEUTRAL');
+
+-- AlterTable
+ALTER TABLE "whispers" ADD COLUMN     "mood" TEXT NOT NULL DEFAULT 'NEUTRAL';

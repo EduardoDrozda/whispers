@@ -1,0 +1,6 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'gcr.io/whispers-456520/whispers-api', '-f', 'apps/whispers.api/Dockerfile', '.']
+
+images:
+  - 'gcr.io/whispers-456520/whispers-api'
