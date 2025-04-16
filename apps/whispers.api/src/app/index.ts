@@ -56,7 +56,7 @@ export class Application {
     await this.server
       .listen(port!)
       .then(() => {
-        this.loggerService.info(`🚀 ${this.constructor.name} running  http://localhost:${port}/${this.globalPrefix}`);
+        this.loggerService.info(`🚀  ${this.constructor.name} running  http://localhost:${port}/${this.globalPrefix}`);
       })
       .catch((error) => {
         this.loggerService.error(
